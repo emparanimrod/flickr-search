@@ -30,13 +30,13 @@ const mutations = {
 
 const actions = {
   // get photos by search term
-  getPhotos({ commit }, { term }) {
+  getPhotos({ commit }, term) {
     const url = `/?method=flickr.photos.search&api_key=${process.env.VUE_APP_API_KEY}&text=${term}&format=json&nojsoncallback=1`;
     // set loading state
     commit("SET_LOADING", true);
     // make request
     instance.get(url).then((response) => {
-      commit("SET_PHOTOS", response.photos.photo);
+      commit("SET_PHOTOS", response.data.photos.photo);
     });
   },
 
@@ -50,7 +50,7 @@ const actions = {
     axios
       .get(url)
       .then((response) => {
-        commit("SET_PHOTOS", response.photos.photo);
+        commit("SET_PHOTOS", response.photos);
       })
       .catch((error) => {
         console.log(error);

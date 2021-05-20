@@ -7,7 +7,7 @@ export default {
   name: "Search",
   computed: {},
   mounted() {
-    this.$store.dispatch("getPhotos", "flowers");
+    this.$store.dispatch("getPhotos", "sun");
   },
 };
 </script>
