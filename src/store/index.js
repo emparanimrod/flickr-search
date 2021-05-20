@@ -20,7 +20,6 @@ const mutations = {
 
   SET_RELATED(state, related) {
     state.related = related;
-    state.isLoading = false;
   },
 
   SET_LOADING(state, loadingState) {
@@ -31,9 +30,10 @@ const mutations = {
 const actions = {
   // get photos by search term
   getPhotos({ commit }, term) {
+    commit("SET_LOADING", true);
     const url = `/?method=flickr.photos.search&api_key=${process.env.VUE_APP_API_KEY}&text=${term}&format=json&nojsoncallback=1`;
     // set loading state
-    commit("SET_LOADING", true);
+
     // make request
     instance.get(url).then((response) => {
       commit("SET_PHOTOS", response.data.photos.photo);
@@ -42,15 +42,16 @@ const actions = {
 
   // Get related tags based on search term
 
-  getRelatedTags({ commit }, { term }) {
+  getRelatedTags({ commit }, term) {
     // set loading state
     commit("SET_LOADING", true);
-    const url = `${process.env.FLICKR_URL}&api_key=${process.env.FLICKR_URL}&text=${term}&format=json&nojsoncallback=1`;
+    const url = `/?method=flickr.tags.getRelated&api_key=${process.env.VUE_APP_API_KEY}&tag=${term}&format=json&nojsoncallback=1`;
     // make request
-    axios
+    instance
       .get(url)
       .then((response) => {
-        commit("SET_PHOTOS", response.photos);
+        console.log(response);
+        commit("SET_RELATED", response.data.tags.tag);
       })
       .catch((error) => {
         console.log(error);

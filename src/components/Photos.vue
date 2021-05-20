@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mx-auto">
     <div :key="photo.id" v-for="photo in photos" class="item">
       <div
         :style="{
@@ -38,8 +38,8 @@ export default {
   height: 100%;
   border-radius: 10px;
   background-color: red;
-  /* background-repeat: no-repeat;
-        background-size: cover !important; */
+  background-repeat: no-repeat;
+  background-size: cover !important;
 }
 
 .container .item div:hover {
