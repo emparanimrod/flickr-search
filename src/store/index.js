@@ -17,6 +17,7 @@ const state = {
   related: [],
   isLoading: false,
   photoDate: "",
+  searchTerm: "",
 };
 const mutations = {
   SET_PHOTOS(state, photos) {
@@ -38,6 +39,9 @@ const mutations = {
 
   CLEAR_DATE(state) {
     state.photoDate = "";
+  },
+  SET_SEARCHTERM(state, term) {
+    state.searchTerm = term;
   },
 };
 
@@ -90,6 +94,11 @@ const actions = {
   cancelRequest({ commit }) {
     source.cancel("cancelled by user");
     commit("SET_LOADING", false);
+  },
+
+  // set search term
+  setSearchTerm({ commit }, term) {
+    commit("SET_SEARCHTERM", term);
   },
 };
 const modules = {};

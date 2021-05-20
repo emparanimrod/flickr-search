@@ -33,6 +33,7 @@
           px-4
           rounded-full
         "
+        @click="getPhotos(tag._content)"
       >
         {{ tag._content }}
       </button>
@@ -54,6 +55,11 @@ export default {
   methods: {
     cancel() {
       this.$store.dispatch("cancelRequest");
+    },
+    getPhotos(term) {
+      this.$store.dispatch("setSearchTerm", term);
+      this.$store.dispatch("getPhotos", term);
+      this.$store.dispatch("getRelatedTags", term);
     },
   },
 };

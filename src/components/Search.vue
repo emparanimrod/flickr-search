@@ -45,18 +45,22 @@
 <script>
 export default {
   name: "Search",
-  data() {
-    return {
-      searchTerm: "",
-    };
-  },
   methods: {
     search() {
       this.$store.dispatch("getPhotos", this.searchTerm);
       this.$store.dispatch("getRelatedTags", this.searchTerm);
     },
   },
-  computed: {},
+  computed: {
+    searchTerm: {
+      get() {
+        return this.$store.state.searchTerm;
+      },
+      set(value) {
+        this.$store.dispatch("setSearchTerm", value);
+      },
+    },
+  },
   mounted() {
     // this.$store.dispatch("getPhotos", "music");
   },
