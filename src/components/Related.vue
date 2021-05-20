@@ -12,6 +12,7 @@
         px-4
         rounded-full
       "
+      @click="cancel"
     >
       Cancel Search
     </button>
@@ -48,6 +49,11 @@ export default {
     },
     related() {
       return this.$store.state.related;
+    },
+  },
+  methods: {
+    cancel() {
+      this.$store.dispatch("cancelRequest");
     },
   },
 };
