@@ -1,27 +1,24 @@
 <template>
   <div class="container mx-auto">
     <div :key="photo.id" v-for="photo in photos" class="item">
-      <Tooltip position="top" :tooltipText="'custom text'">
-        <div
-          @mouseover="getDate(photo.id)"
-          @mouseleave="clearDate"
-          :style="{
-            background: `url(https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg)`,
-          }"
-        ></div>
-      </Tooltip>
+      <div
+        @mouseover="getDate(photo.id)"
+        @mouseleave="clearDate"
+        :style="{
+          background: `url(https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg)`,
+        }"
+      >
+        <div class="bg-gray-600 bg-opacity-70 w-100 overlay">
+          <p class="text-white py-20">Posted {{ date }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Tooltip from "@/components/Tooltip.vue";
-
 export default {
   name: "Related",
-  components: {
-    Tooltip,
-  },
   computed: {
     photos() {
       return this.$store.state.photos;
@@ -57,13 +54,25 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  background-color: red;
   background-repeat: no-repeat;
   background-size: cover !important;
 }
 
-.container .item div:hover {
+.container.item div:hover {
   transform: scale(1.02);
   transition: 600ms ease-in;
+}
+
+.item .overlay {
+  width: 100%;
+  height: 100%;
+  font-size: 1.5em;
+  color: white;
+  opacity: 0;
+}
+
+.item .overlay:hover {
+  opacity: 1;
+  transition: 400ms ease-in-out;
 }
 </style>

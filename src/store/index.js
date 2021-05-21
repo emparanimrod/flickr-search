@@ -1,6 +1,10 @@
 import { createStore } from "vuex";
 import axios from "axios";
-import * as timeago from "timeago.js";
+import dayjs from "dayjs";
+var relativeTime = require("dayjs/plugin/relativeTime");
+
+// setup relative time
+dayjs.extend(relativeTime);
 
 // cancel token
 let CancelToken = axios.CancelToken;
@@ -79,8 +83,10 @@ const actions = {
     instance
       .get(url)
       .then((response) => {
-        console.log(response);
-        commit("SET_DATE", timeago.format(response.data.photo.dates.posted));
+        commit(
+          "SET_DATE",
+          dayjs.unix(response.data.photo.dateuploaded).fromNow()
+        );
       })
       .catch((error) => console.log(error));
   },
